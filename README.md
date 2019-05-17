@@ -1,0 +1,1 @@
+# latex-2columns-template
