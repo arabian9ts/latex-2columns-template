@@ -1,0 +1,93 @@
+\newif\ifenglish
+\englishfalse
+\def\english{\englishtrue}
+\newcommand{\jtitle}[1]{\gdef\@jtitle{#1}}
+\newcommand{\etitle}[1]{\gdef\@etitle{#1}}
+\newcommand{\jauthor}[1]{\gdef\@jauthor{#1}}
+\newcommand{\eauthor}[1]{\gdef\@eauthor{#1}}
+\newcommand{\englishabstract}[1]{\gdef\@englishabstract{#1}}
+\def\maketitle{\par
+\begingroup
+\def\thefootnote{\fnsymbol{footnote}}
+\def\@makefnmark{\hbox{$^{\@thefnmark}$\hss}}
+\if@twocolumn 
+\twocolumn[\@maketitle] 
+\else \newpage
+\global\@topnum\z@ \@maketitle \fi\thispagestyle{empty}\@thanks
+\endgroup
+\setcounter{footnote}{0}
+\let\maketitle\relax
+\let\@maketitle\relax
+\gdef\@thanks{}\gdef\@author{}\gdef\@title{}\let\thanks\relax}
+
+\def\@maketitle{
+\newpage
+\null
+\begin{center}
+\let \footnote \thanks
+  {\Large \bf 
+     \ifenglish\else \@jtitle \\ \fi \@etitle
+     \par}%
+    \vskip 0.5em
+    {\normalsize \bf
+      \lineskip .5em
+        \ifenglish\else \@jauthor \\ \fi
+        \@eauthor
+      \par}%
+    \vskip 1em
+    \parbox{150mm}{\baselineskip 12pt
+      {\bf Abstract \hskip 0.8em}\@englishabstract\par}
+  \end{center}
+  \vskip 0.5em
+}
+
+\renewcommand{\@begintheorem}[2]{\trivlist \item[\hskip 
+  \labelsep{\bf #1\ #2\ }]}
+\renewcommand{\@opargbegintheorem}[3]{\trivlist \item[\hskip 
+  \labelsep{\bf #1\ #2\ \rm [#3]\ }]}
+
+\def\eqnarray{\stepcounter{equation}\let\@currentlabel=\theequation
+\global\@eqnswtrue
+\global\@eqcnt\z@\tabskip\@centering\let\\=\@eqncr
+$$\halign to \displaywidth\bgroup\@eqnsel\hskip\@centering
+  $\displaystyle\tabskip\z@{##}$&\global\@eqcnt\@ne 
+  \hfil$\displaystyle{{}##{}}$\hfil
+  &\global\@eqcnt\tw@
+   $\displaystyle\tabskip\z@{##}$\hfil 
+   \tabskip\@centering&\llap{##}\tabskip\z@\cr}
+
+\def\section{\@startsection {section}{1}{\z@}{2.5ex plus 1ex minus 
+ .2ex}{1.5ex plus .2ex}{\large\bf}}
+\def\subsection{\@startsection{subsection}{2}{\z@}{2.5ex plus 1ex minus 
+ .2ex}{1.5ex plus .2ex}{\normalsize\bf}}
+\def\subsubsection{\@startsection{subsubsection}{3}{\z@}{2.5ex plus 
+1ex minus .2ex}{1.5ex plus .2ex}{\normalsize\bf}}
+\def\paragraph{\@startsection
+ {paragraph}{4}{\z@}{2.5ex plus 1ex minus .2ex}{-1em}{\normalsize\bf}}
+\def\subparagraph{\@startsection
+ {subparagraph}{4}{\parindent}{2.5ex plus 1ex minus 
+ .2ex}{-1em}{\normalsize\bf}}
+
+\twocolumn
+\pagestyle{empty}
+\topmargin 0mm  
+\oddsidemargin -5mm  
+\evensidemargin -5mm
+\headheight 0pt  
+\headsep 0pt  
+\footskip 0pt
+\columnseprule 0pt
+\parindent 3mm
+\textheight 240mm
+\textwidth 172mm
+\columnsep 6mm
+
+\newtheorem{definition}{\ifenglish Definition\else 定義\fi}
+\newtheorem{theorem}{\ifenglish Theorem\else 定理\fi}
+\newtheorem{corollary}{\ifenglish Corollary\else 系\fi}
+\newtheorem{lemma}{\ifenglish Lemma\else 補題\fi}
+\newtheorem{proof}{\ifenglish Proof\else 証明\fi}
+\renewcommand{\theproof}{} 
+\renewcommand{\endproof}{\ifenglish $\Box$\else {\small □}\fi
+\endtrivlist}
+
